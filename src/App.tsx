@@ -59,6 +59,8 @@ const A: React.FC = () => {
   )
 }
 
+// https://ja.react.dev/reference/react-dom/components/form#handling-form-submission-errors
+// ここによると、エラーキャッチしてみるみたいだけど、実際はキャッチできてない
 const B: React.FC = () => {
   function search(event: React.FormEvent<HTMLFormElement>) {
     // しないとリロードされる
