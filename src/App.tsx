@@ -40,6 +40,21 @@ function App() {
 const A: React.FC = () => {
   const { showBoundary } = useErrorBoundary();
 
+  // showBoundary を内包する薄いラッパー
+  const wrapCatchError = <Args extends unknown[]>(fn: (...args: Args) => void) => (...args: Args) => {
+    try {
+      fn(...args);
+    } catch (error) {
+      showBoundary(error);
+    }
+  };
+
+  const searchV2 = wrapCatchError((event: React.FormEvent<HTMLFormElement>) => {
+    // しないとリロードされる
+    event.preventDefault();
+    throw new Error("search error");
+  });
+
   function search(event: React.FormEvent<HTMLFormElement>) {
     try {
       // しないとリロードされる
